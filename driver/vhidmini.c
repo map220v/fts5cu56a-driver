@@ -2074,10 +2074,11 @@ OnInterruptIsr(
         remain = eventbuf[7] & 0x1F;
         if (remain > 0)
         {
+            if (remain > 9)
+                remain = 9;
+            
             SpbWriteRead(pDevice, cmd_readallevents, 1, &eventbuf[16], (USHORT)(16 * remain), 0);
         }
-        if (remain > 9)
-            remain = 9;
         //total event count
         readReport.DIG_TouchScreenContactCount = (BYTE)remain + 1;
         
